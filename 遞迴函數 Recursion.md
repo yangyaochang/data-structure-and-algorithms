@@ -1,4 +1,4 @@
-##Recursion
+## Recursion
 
 ### 定義
 
@@ -6,7 +6,7 @@
 
 ### Recursion 函數的組成
 
-###When should we use recursion?
+### When should we use recursion?
 
 Common signs  
     
