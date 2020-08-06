@@ -85,66 +85,48 @@
 	}
 ```
 
-#### 在有重複元素的 Ratated Sorted Array 中執行 Binary Search
+#### 在沒有重複元素的 Ratated Sorted Array 中執行 Binary Search
+
+一個沒有重複元素的 Sorted Array 若是 Rotated，那麼 `nums[left] > nums[right]`。在 Ratated Sorted Array 中至少有一半是 Sorted。
 
 
-一個沒有重複元素的 sorted array 若是 rotated，那麼 `nums[left] > nums[right]`
+* 利用 `while (nums[left] > nums[right])` 來搜尋是左半 Sorted 還是右半 Sorted。
+* 若 `nums[mid] > nums[left]` 則左半為 Sorted，此時若 `traget` 在此區則可執行執行 Binary Search，否則繼續搜尋 Rotated 的右半。
+* 若 `nums[mid] < nums[right]` 則右半為 Sorted，此時若 `traget` 在此區則可執行執行 Binary Search，否則繼續搜尋 Rotated 的左半。
+* 當搜索範圍不再 Rotated，break out `while` loop 直接調用 Binary Search
 
-若 `nums[mid] > nums[left]` 則左半為 sorted，若 traget 在此區則執行 binary search
+```
+var search = function(nums, target) {
+    let left = 0
+    let right = nums.length - 1
+  
+    while (nums[left] > nums[right]) {
+        let mid = Math.floor((left + right) / 2)
 
-若 `nums[mid] < nums[right]` 則右半為 sorted，若 traget 在此區則執行 binary search
-
-當搜索範圍不再 rotated，直接調用 binary search
-
-
-
-## 153. Find Minimum in Ratated Sorted Array
-
-while (nums[left] > nums[right]) => rotated
-right sorted => mid could be the smallest
-if (nums[mid] === nums[left]) 只發生在剩兩個元素 right 為最小
-
-覺得目前最合理的答案 想一下 iteration 怎麼做
-
-var findMin = function(nums) {
-    const find = (left, right) => {
-        if (left === right) {return nums[left]}
-        if (left + 1 === right) {return Math.min(nums[left], nums[right])}
-        if (nums[left] < nums[right]) {return nums[left]}
-        
-        const mid = Math.floor((left + right) / 2)
-        
-        if (nums[mid] > nums[left]) {
-            return find(mid + 1, right)
-        } else if (nums[mid] < nums[right]) {
-            return find(left, mid)
+        if (nums[mid] >= nums[left]) { 
+            if (nums[mid] >= target && target >= nums[left]) {
+                return binarySearch(left, mid)
+            } else {
+                left = mid + 1
+            }
+        } else if (nums[mid] < nums[left]) {
+            if (nums[mid] <= target && target <= nums[right]) {
+                return binarySearch(mid, right)
+            } else {
+                right = mid - 1
+            }
         }
     }
     
-    return find(0, nums.length - 1)
+    return binarySearch(left, right)
 };
+```
 
-## 154. Find Minimum in Rotated Sorted Array II
+#### 在有重複元素的 Ratated Sorted Array 中執行 Binary Search
 
-一直對分到只剩一個
+有重複元素的 Ratated Sorted Array 無法判定哪一邊是 Sorted，直接將 Array 對分到只剩一個 Element。
 
-因為無法判定只需要看哪一邊
+	const arr1 = [2,2,3,1,2,2,2,2,2,2,2,2,2]          
+	const arr2 = [2,2,2,2,2,2,2,3,1,2,2,2,2]
 
-2,2,3,1,2,2,2,2,2,2,2,2,2
-2,2,2,2,2,2,2,3,1,2,2,2,2
 
-如果 right > left 還是可以確定是 sroted 即便有重複
-
-var findMin = function(nums) {
-    
-    const divide = (left, right) => {
-        if (left === right) {return nums[left]}
-        if (nums[left] < nums[right]) {return nums[left]}
-      
-        let mid = Math.floor((left + right) / 2)
-
-        return Math.min(divide(left, mid), divide(mid + 1, right))
-    }
-
-    return divide(0, nums.length - 1)
-};
