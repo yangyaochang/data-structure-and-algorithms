@@ -14,6 +14,8 @@
 * 因為 `left` 和 `right` 規範出的是一個封閉區間，若查找後 `target === nums[mid]` 則直接 `return mid` 否則查找後 `left` 和 `right` 的移動分別為 `mid + 1` 和 `mid - 1` 。
 * 將所有條件條列清楚，不要使用 `else`
 
+若 `target` 在陣列中不存在，`left` 最終會出界 (`left >= nums.length`) 或指向大於 `target` 的最小值。同理，`right` 最終會出界 (`right < 0`) 或指向小於 `target` 的最大值。
+
 #### 在沒有重複元素的 Sorted Array 中執行 Binary Search
 
 	function search(nums, target) {
