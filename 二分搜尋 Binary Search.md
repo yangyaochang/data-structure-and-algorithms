@@ -102,21 +102,23 @@ var search = function(nums, target) {
     let left = 0
     let right = nums.length - 1
   
-    while (nums[left] > nums[right]) {
-        let mid = Math.floor((left + right) / 2)
+    while (nums[left] >= nums[right]) {
+        const mid = Math.floor((left + right) / 2)
 
-        if (nums[mid] >= nums[left]) { 
+        if (nums[mid] > nums[left]) {
             if (nums[mid] >= target && target >= nums[left]) {
                 return binarySearch(left, mid)
             } else {
                 left = mid + 1
             }
-        } else if (nums[mid] < nums[left]) {
-            if (nums[mid] <= target && target <= nums[right]) {
+        } else if (nums[left] > nums[mid]) {
+            if (nums[right] >= target && target >= nums[mid]) {
                 return binarySearch(mid, right)
             } else {
                 right = mid - 1
             }
+        } else if (nums[mid] === nums[left]) {
+            left++
         }
     }
     
@@ -126,9 +128,38 @@ var search = function(nums, target) {
 
 #### 在有重複元素的 Ratated Sorted Array 中執行 Binary Search
 
-有重複元素的 Ratated Sorted Array 無法判定哪一邊是 Sorted，直接將 Array 對分到只剩一個 Element。
+有重複元素的 Ratated Sorted Array 無法判定哪一邊是 Sorted。
 
 	const arr1 = [2,2,3,1,2,2,2,2,2,2,2,2,2]          
 	const arr2 = [2,2,2,2,2,2,2,3,1,2,2,2,2]
 
 
+	// nums[left] >= nums[right] 扣除整個 array 都是同一個元素的情況就是 rotated
+	while (nums[left] >= nums[right]) {
+	    while (nums[left] === nums[right]) {
+	        if (left === right) {return nums[left] === target}
+	        // 檢查若是整個 array 都是同一個元素的話 是否有找到
+	        left++
+	    }
+	    
+	    const mid = Math.floor((left + right) / 2)
+	
+	    if (nums[mid] > nums[left]) {
+	        if (nums[mid] >= target && target >= nums[left]) {
+	            return binarySearch(left, mid)
+	        } else {
+	            left = mid + 1
+	        }
+	    } else if (nums[left] > nums[mid]) {
+	        if (nums[right] >= target && target >= nums[mid]) {
+	            return binarySearch(mid, right)
+	        } else {
+	            right = mid - 1
+	        }
+	    } else if (nums[mid] === nums[left]) {
+	        if (nums[left] === target) {return true}
+	        else {left = mid + 1}
+	    }
+	}
+	
+	return binarySearch(left, right)
