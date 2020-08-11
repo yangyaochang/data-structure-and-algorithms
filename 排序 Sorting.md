@@ -103,9 +103,114 @@ function mergesort(input) {
 }
 ```
 
-#### Heap Sort
+#### Binary Heap
 
-##### Binary Heap
+在理解 Heap Sort 之前先了解什麼是 Binary Heap。Binary Heap 是一個利用 Array 來表示 Complete Binary Tree 的資料結構，有兩項基本特徵：
+
+1. Binary Heap 之結構可以視作 Complete Binary Tree     
+所以每當要 Add 或 Remove 一個 Element 時必須發生在 Breadth-first-most Position (也就是 Array 的尾端) 以維持 Complete Binsry Tree 的結構。
+
+2. Binary Heap 一共有兩類：
+	1. Max Heap - Parent 的值比 Child 大，Root 會有最大值
+	2. Min Heap - parent 的值比 Child 小，Root 會有最小值
+
+Binary Heap 的概念雖然以二元樹來解釋，但實際上是以 Array 在儲存資料。利用二元樹陣列表示法的概念以 Array 來代表一個樹狀結構。為什麼使用 Array 來儲存資料，卻是用 Array 另外表示一個二元樹，而不是直接使用 Array 的方法呢？因為在 Array 上操作 Insertion, Deletion 是屬於 O(n) 的操作，透過二元樹可以降為 O(log n)，因為最多就是操作 log n 次。**常用來解決的問題是，想要取資料中的最大或最小值，但想節省 Time Complexity**。
+
+當有 Add 或 Remove 發生時，有可能要重新調整二元樹的結構以符合 Max 或 Min Heap 定義。可以此概念推導出 Binary Heap 所需要的方法。
+
+	class Minheap {
+	    constructor() {
+	        this.storage = []
+	    }
+	
+	    swap(index1, index2) {
+	        [this.storage[index1], this.storage[index2]] = [this.storage[index2], this.storage[index1]]
+	    }
+	
+	    peak() {
+	        return this.storage[0]
+	    }
+	
+	    size() {
+	        return this.storage.length
+	    }
+	
+	    insert(value) {
+	        this.storage.push(value)
+	        this.bubbleUp(this.size() - 1)
+	    }
+	
+	    getParent(childIndex) {
+	        if (childIndex % 2 === 0) {
+	            return (childIndex - 2) / 2
+	        } else {
+	            return (childIndex - 1) / 2
+	        }
+	    }
+	
+	    bubbleUp(childIndex) {
+	        let parentIndex = this.getParent(childIndex)
+
+	        while (childIndex > 0 && this.storage[childIndex] < this.storage[parentIndex]) {
+	            this.swap(childIndex, parentIndex)
+	            childIndex = parentIndex
+	            parentIndex = this.getParent(childIndex)
+	        }
+	    }
+	
+	    removePeak() {
+	        this.swap(0, this.size() - 1)
+	        let result = this.storage.pop()
+	        this.bubbleDown(0)
+	        return result
+	    }
+	
+	    getChild(parentIndex) {
+	        let leftChild = 2 * parentIndex + 1
+	        let rightChild = 2 * parentIndex + 2
+	
+	        if (leftChild >= this.size()) {
+	            return leftChild
+	        } else if (rightChild >= this.size()) {
+	            return leftChild
+	        } else if (this.storage[leftChild] < this.storage[rightChild]) {
+	            return leftChild
+	        } else {
+	            return rightChild
+	        }
+	    }
+	
+	    bubbleDown(parentIndex) {
+	        let childIndex = this.getChild(parentIndex)
+	
+	        while (childIndex < this.size() && this.storage[parentIndex] > this.storage[childIndex]) {
+	            this.swap(childIndex, parentIndex)
+	            parentIndex = childIndex
+	            childIndex = this.getChild(parentIndex)
+	        }
+	    }
+	
+	    remove(value) {
+	        let removeIndex
+	        for (let i = 0; i < this.storage.length; i++) {
+	            if (this.storage[i] === value) {
+	                removeIndex = i
+	            }
+	        }
+	
+	        if (removeIndex === undefined) {
+	            return
+	        }
+	
+	        this.swap(removeIndex, this.size() - 1)
+	        let result = this.storage.pop()
+	        this.bubbleDown(removeIndex)
+	        this.bubbleUp(removeIndex)
+	        return result
+	    }
+	}
+
+#### Heap Sort
 
 ##### 邏輯
 
