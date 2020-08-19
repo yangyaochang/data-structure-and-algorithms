@@ -5,6 +5,7 @@
 * 以 `while` loop 與 Queue 實現 BFS
 * 以 Recursion 實現 DFS
 * 在 Graph 上多考慮 Redundancy 問題
+* Tree 的解題重點通常在於在每一個 node 上要做什麼事情，還有要使用 Bottom-up 還是 Top-down
 
 ### Implementing BFS on Binary Tree
 
