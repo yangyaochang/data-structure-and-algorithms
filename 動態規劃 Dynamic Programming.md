@@ -1,6 +1,6 @@
 ## 動態規劃 Dynamic Programming
 
-Dynamic Programming (DP) 是一種優化演算法的方式。可以利用 DP 優化的演算法多半解決的問題是求極值 (例外，費氏數列)，而求極值的方法就是窮舉，窮舉出所有可能找到最大或最小值。
+Dynamic Programming (DP) 是一種優化演算法的方式。可以利用 DP 優化的演算法多半解決的問題是求極值 (例外，費氏數列)，而求極值的方法就是窮舉，窮舉出所有可能找到最大或最小值。**所以動態規劃就是用來優化窮舉**。
 
 求極值靠窮舉，**窮舉的邏輯是樹狀結構，窮舉的過程是 DFS on Tree**，可以透過 Recursion 與 Backtracking 來實現。若窮舉的樹狀邏輯具有
 
@@ -28,13 +28,16 @@ Dynamic Programming (DP) 是一種優化演算法的方式。可以利用 DP 優
 
 因為 Recursion 函數的參數會用來 Track State, Hold Result，所以從 Recursion 函數的參數找到窮舉邏輯中的狀態。而 dp[i] 的定義就是遞迴函數的意義。
 
+> e.g. 以 LeetCode Coin Change 為例       
+以 Top-down Approach 推導完窮舉的邏輯後，遞迴函數的參數是當下硬幣的總和，而遞迴函數的意義是當目標金額為 `amount` 時，湊齊目標金額所需的最少錢幣數。所以若要以 Tabulation 優化此窮舉，狀態是硬幣總和，dp[i] 的意義為當目標金額為 i 時，湊齊目標金額所需的最少錢幣數。將兩個概念合併在一起
+ 
 #### 怎列出狀態轉移方程式 - 窮舉邏輯中的狀態轉移
 
-Recursion 邏輯的特色就是 **Different State, Same Policy**，在不同狀態下執行一樣的運算。遞迴函數不只被應用在窮舉，例如 Divide and Conquer。
+Recursion 是程式運算的一種方式，邏輯的特色就是 **Different State, Same Policy**，在不同狀態下執行一樣的運算。若是演算法的邏輯具有這種特色，可以透過遞迴實現，不只被應用在窮舉，例如 Divide and Conquer。
 
 窮舉邏輯在做的事情其實就是在不同選擇的狀態 (Different State) 中窮舉各種選擇 (Same Policy)，符合遞迴函數的特性可以用遞迴實現，實現方法是在一個選擇後的狀態中列舉當下所有選擇，做了選擇之後，以選擇後的狀態調用下一個 Recursion，這個過程稱為**狀態轉移**。
 
-所以 Tabulation 所需要的狀態轉移方程式，也是透過遞迴函數之間如何狀態轉移推導而來。
+所以 Tabulation 所需要的狀態轉移方程式，也是透過**遞迴函數之間如何狀態轉移**推導而來。
 
 #### 如何列出狀態轉移方程式
 
