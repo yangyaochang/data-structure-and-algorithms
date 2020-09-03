@@ -2,11 +2,11 @@
 
 ### 回溯法的邏輯
 
-逐一嘗試各種可能 (enumeration of candidates 列舉各種可能性, enumeration 列舉)，在嘗試過程中若發現路徑不為解或已窮盡所有可能，退回前一步驟，重新嘗試其他可能。
+簡單來說，Backtracking 就是回到上一個選擇的狀態。逐一嘗試各種可能 (enumeration of candidates 列舉各種可能性, enumeration 列舉)，在嘗試過程中若發現路徑不為解或已窮盡所有可能，退回前一步驟，重新嘗試其他可能。
 
 ### 解題重點
 
-Backtracking 是一種演算法，也就是一種邏輯。以我目前的解題經驗來看，通常被應用在窮舉。窮舉的邏輯是一個樹狀結構，窮舉的過程是 DFS on Tree，所以窮舉可以透過 Recursion 與 Backtracking 來實現。
+以我目前的解題經驗來看，Backtracking 通常搭配遞迴函數實現窮舉。窮舉的邏輯是一個樹狀結構，窮舉的過程是 DFS on Tree。
 
 #### 如何分析一個窮舉過程
 
@@ -18,8 +18,8 @@ Backtracking 是一種演算法，也就是一種邏輯。以我目前的解題�
 
 窮舉的邏輯主要分為兩個層面
 
-* 第一個層面 (做選擇) - 調用 Recursion，調用 Recursion 代表做了一個選擇，往下一個選擇移動。
-* 第二個層面 (窮舉各種選擇) - 是在 Recursion 中利用 Iteration 窮舉當下的所有選擇。Backtracking 會與 Iteration 在同一個 level 發生，也就是在 recursion 中。Backtracking 的邏輯就出現在
+* 第一個層面 (做選擇) - 調用 Recursion，選擇後的狀態調用 Recursion 代表做了一個選擇，往下一個選擇移動。
+* 第二個層面 (窮舉各種選擇) - 利用 Iteration 窮舉當下的所有選擇。Backtracking 會與 Iteration 在同一個 level 發生，在每一個 Iteration 裡
 
 	1. 做選擇
 	2. 調用遞迴
