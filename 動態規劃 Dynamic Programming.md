@@ -50,6 +50,13 @@ Recursion 是程式運算的一種方式，邏輯的特色就是 **Different Sta
 3. 找到選擇
 4. 定義 dp 陣列的意義
 
+#### 找到 Base Cases
+
+我自己的經驗是，有時候會不確定 Base Cases 的值為多少。這時候可以回到 dp[i] 的定義去思考。Base Cases 代入 dp[i] 的定義後值會是多少。
+
+> 以 LeetCode Unique Paths 為例       
+> dp[i][j] 代表的是在有 i + 1 rows, j + 1 columns 的方格中從 [0, 0] 走到 [i, j] 的路徑數，那麼 Base Case dp[0][0] 就是從 [0, 0] 走到 [0, 0] 的路徑數，也就是 1。所以 dp[0][0] = 1
+
 #### Tabulation 模板
 
 ```
