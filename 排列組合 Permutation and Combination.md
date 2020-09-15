@@ -11,7 +11,7 @@
 ### 解題步驟
 
 1. 以上述三點建立窮舉的樹狀邏輯
-2. 透過樹狀邏輯得到 Recursion 函數需要的參數與 Base Case
+2. **透過樹狀邏輯得到 Recursion 函數需要的參數與 Base Case**
 3. 再利用模板確認細部邏輯
 
 ## 排列 Permutation
