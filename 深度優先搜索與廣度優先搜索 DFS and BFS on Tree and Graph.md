@@ -13,9 +13,10 @@
 
 1. Add the starting node (root node) to the queue
 2. while queue is not empty
-	3. 利用變數 currentNode 指向正在操作的 node (to mark which node you are operating on) - `dequeue()`
-	4. Visit the currentNode
-	5. Check currentNode 是否有左子節點與右子節點，有的話 Add them to the queue
+	1. 利用變數 currentNode 指向正在操作的 node (to mark which node you are operating on) - `dequeue()`
+	2. Visit the currentNode
+	3. Check currentNode 是否有左子節點與右子節點，有的話 Add them to the queue
+	
 	```
 	if (currentNode.left) {queue.push(currentNode.left)} 
 	```
