@@ -176,3 +176,46 @@ var search = function(nums, target) {
 	}
 	
 	return binarySearch(left, right)
+	
+我後來寫了另一個解法，稍微不一樣但還沒比較出心得
+
+	var search = function(nums, target) {
+	    let left = 0
+	    let right = nums.length - 1
+	
+	    while (nums[left] >= nums[right]) {
+	        while (nums[left] === nums[right]) {
+	            if (left === right) {return nums[left] === target}
+	            left++
+	        }
+	
+	        const mid = Math.floor((left + right) / 2)
+	
+	        if (nums[left] <= nums[mid]) {
+	            if (nums[left] <= target && target <= nums[mid]) {
+	                return binarySearch(left, mid)
+	            } else {
+	                left = mid + 1
+	            }
+	        } else if (nums[right] >= nums[mid]) {
+	            if (nums[right] >= target && target >= nums[mid]) {
+	                return binarySearch(mid, right)
+	            } else {
+	                right = mid - 1
+	            }
+	        }
+	    }
+	
+	    return binarySearch(left, right)
+	
+	    function binarySearch(left, right) {
+	        while (left <= right) {
+	            const mid = Math.floor((left + right) / 2)
+	
+	            if (nums[mid] === target) {return true}
+	            else if (nums[mid] < target) {left = mid + 1}
+	            else if (nums[mid] > target) {right = mid - 1}
+	        }
+	        return false
+	    }
+	}
