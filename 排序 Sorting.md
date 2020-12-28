@@ -34,12 +34,14 @@ Merge Sort 是 Stable Sort，Quick Sort 是 Unstable Sort
 const quicksort = (arr) => {
 	const divide = (start, end) => {
 		if (start >= end) {return}
+		// start, end 兩個 pointers 定義排序範圍
 		// > handles the case where pivot value is the biggest or the smallest => mid = start or mid = end
 	
 		let mid = start
 	
 		for (let i = start; i < end; i++) {
 			if (arr[i] < arr[end]) {
+			// 如果是 <= quicksort 會不會變 stable?
 				[arr[i], arr[mid]] = [arr[mid], arr[i]]
 				mid++
 			}

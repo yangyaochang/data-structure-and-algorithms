@@ -38,7 +38,7 @@
 * 同一元素可不可以重複使用？      
 若是不能重複同一元素，用一個 `used` array 紀錄這個 index 有沒有用過。做決定時 `used[i] = true`，在 backtrack 時  `used[i] = false`。`if (used[i]) {continue}` 跳過這個選擇。
 * options 裡面有沒有重複的元素？        
-若有重複元素，在同一個 level 遇到重複的元素要忽略。**先將 options 排序後**，當 `i > 0 && !used[i - 1] && nums[i] === nums[i - 1]` 時 `continue`(**`used[i - 1] === false` 因為有 Backtracking**，`used[i - 1] === true` 會發生在下一個 Level 的選擇但元素與上一個 Level 被選擇的元素一樣，此時 `options[i]` 是可以選擇的)
+若有重複元素，在同一個 level 遇到重複的元素應視為相同的選擇，要忽略。**先將 options 排序後**，當 `i > 0 && !used[i - 1] && nums[i] === nums[i - 1]` 時 `continue`(**`used[i - 1] === false` 因為有 Backtracking**，`used[i - 1] === true` 會發生在下一個 Level 的選擇但元素與上一個 Level 被選擇的元素一樣，此時 `options[i]` 是可以選擇的)
 * 檢查 Backtracking
 
 [LeetCode 47 花花答案參考](https://zxi.mytechroad.com/blog/searching/leetcode-47-permutations-ii/)
@@ -80,7 +80,7 @@ dfs(state, path, used) {
 * 同一元素可不可以重複使用？      
 如果可以重複使用同一元素，要做下一個選擇的 `start` 不變。若是不能重複同一元素，要做下一個選擇時 `start + 1`。
 * options 裡面有沒有重複的元素？        
-若有重複元素，在同一個 level 遇到重複的元素要忽略。**先將 options 排序後**，當 `i > start && options[i] === options[i - 1]` 時 `continue`
+若有重複元素，在同一個 level 遇到重複的元素應視為相同的選擇，要忽略。**先將 options 排序後**，當 `i > start && options[i] === options[i - 1]` 時 `continue`
 * 檢查 Backtracking
 
 ```
