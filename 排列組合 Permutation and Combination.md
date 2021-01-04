@@ -96,3 +96,21 @@ dfs(state, path, start) {
 	}
 }
 ```
+
+## 範例
+
+### 39. Combination Sum
+
+Time Complexity: 
+為 n 叉樹的節點數，n 為 the size of candidates array
+樹高為 target / min value in candidates，考慮每次都加最小值
+節點數 = 1 + n + n ^ 2 + .... + n ^ (target / min)
+等比級數和公式 = a0(1 - r ^ (n)) / 1 - r
+所以節點數為 (1 - n ^ ((target / min) + 1)) / 1 - n
+
+Space Complexity: O(target / min)
+
+### 46. Permutations
+
+Time Complexity: 1 + n + n(n - 1) + ... + n!  應該是這樣
+Space Complexity: O(n!)

@@ -17,12 +17,16 @@ Dynamic Programming (DP) 是一種優化演算法的方式。可以利用 DP 優
 
 #### 使用 Tabulation 優化窮舉過程的思考流程
 
-要注意到，本來推演的窮舉邏輯是 Top-down Approach，但是 Tabulation 是以 Bottom-up Approach 分析問題。所以要以 Tabulation 優化窮舉要從底部思考起。
+要注意到，本來推演的窮舉邏輯是 Top-down Approach，但是 Tabulation 是以 Bottom-up Approach 分析問題。如何利用 Top-down Approach 分析出來的窮舉邏輯推導出以 Tabulation 優化的演算法？
 
-1. 找到狀態和選擇
-2. 定義 dp 陣列的意義，以狀態為陣列變數 (index)
-3. 列出狀態轉移方程式 (描述狀態之間的關係)
-4. 以狀態作為 dp 陣列的 index，帶入 dp[i] 的定義，為 Base Case 賦值，以狀態轉移方程式求得 (Iteration) 剩餘 case 的值
+1. 找到狀態
+2. 定義 dp 陣列的意義
+3. 列出狀態轉移方程式 (描述狀態之間的關係與 Base Cases)
+4. 以狀態為陣列變數 (index)，以狀態轉移方程式求得 (Iteration) 剩餘 Case 的值
+
+Mental Model
+
+以窮舉邏輯的樹狀結構來看，本來狀態是窮舉過程中的一個步驟，在 Tabulation 裡狀態代表一個 Case。
 
 #### 怎麼找到窮舉邏輯中的狀態與 dp[i] 的定義
  
@@ -36,8 +40,6 @@ Dynamic Programming (DP) 是一種優化演算法的方式。可以利用 DP 優
 以 Top-down Approach 推導完窮舉的邏輯後，遞迴函數的參數是當下硬幣的總和，而遞迴函數的意義是當目標金額為 `amount` 時，湊齊目標金額所需的最少錢幣數。所以若要以 Tabulation 優化此窮舉，狀態是硬幣總和，dp[i] 的意義為當目標金額為 i 時，湊齊目標金額所需的最少錢幣數。將兩個概念合併在一起，以狀態的值套入 dp[i] 的定義 - 當目標金額為 i (0 - `amount`) 時，湊齊目標金額所需的最少錢幣數。
  
 #### 怎列出狀態轉移方程式 - 窮舉邏輯中的狀態轉移
-
-Recursion 是程式運算的一種方式，邏輯的特色就是 **Different State, Same Policy**，在不同狀態下執行一樣的運算。若是演算法的邏輯具有這種特色，可以透過遞迴實現，不只被應用在窮舉，例如 Divide and Conquer。
 
 窮舉邏輯在做的事情其實就是在不同選擇的狀態 (Different State) 中窮舉各種選擇 (Same Policy)，符合遞迴函數的特性可以用遞迴實現，實現方法是在一個選擇後的狀態中列舉當下所有選擇，做了選擇之後，以選擇後的狀態調用下一個 Recursion，這個過程稱為**狀態轉移**。
 

@@ -28,7 +28,7 @@ Merge Sort 是 Stable Sort，Quick Sort 是 Unstable Sort
 
 * 選擇一個 Pivot Value
 * 將資料分為比 Pivot Value 大與比 Pivot Value 小兩組，就可以確定 Pivot Value 排序後的位置
-* 對兩組資料重複上述步驟直到資料大小只剩下一筆資料
+* 對兩組資料重複上述步驟直到排序範圍只剩下一筆資料
 
 ```    
 const quicksort = (arr) => {
